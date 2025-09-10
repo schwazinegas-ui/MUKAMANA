@@ -1,0 +1,547 @@
+    <!-- Background Text Animation -->
+    <div class="bg-text" id="bgText" id="menuIcon"></div>
+
+    <script>
+        // Create background text eleme id="menuToggle"nts
+        const bgText = document.getElementById('bgText');
+        const text = 'JORDAN BEAT ';
+        const count = 30;
+        
+        for (let i = 0; i < count; i++) {
+            const span = document.createElement('span');
+            span.textContent = text;
+            span.style.animationDelay = `${Math.random() * 5}s`;
+            span.style.opacity = `${0.1 + Math.random() * 0.2}`;
+            span.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+            bgText.appendChild(span);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.md\\:hidden');
+        const mobileMenu = document.querySelector('.hidden.md\\:flex');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            mobileMenu.classList.toggle('flex-col');
+            mobileMenu.classList.toggle('absolute');
+            mobileMenu.classList.toggle('top-16');
+            mobileMenu.classList.toggle('right-6');
+            mobileMenu.classList.toggle('bg-white');
+            mobileMenu.classList.toggle('p-4');
+            mobileMenu.classList.toggle('rounded-lg');
+            mobileMenu.classList.toggle('shadow-lg');
+        });
+
+        // Active nav link based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIRWA Jordan Gloire - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            scroll-behavior: smooth;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-text {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            z-index: -1;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .bg-text span {
+            font-size: 5rem;
+            font-weight: 900;
+            color: #a777e3;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, rgba(110, 142, 251, 0.9), rgba(167, 119, 227, 0.9)), 
+                        url('your-background-image.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, #6e8efb, #a777e3);
+        }
+        
+        .skill-card {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .music-player {
+            background: linear-gradient(135deg, #1e1e2e, #2a2a3a);
+            border-radius: 15px;
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .project-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #6e8efb;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .active:after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold text-gray-800">Jordan<span class="text-purple-600">Beat</span></div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link active text-gray-800 hover:text-purple-600">Home</a>
+                    <a href="#about" class="nav-link text-gray-800 hover:text-purple-600">About</a>
+                    <a href="#skills" class="nav-link text-gray-800 hover:text-purple-600">Skills</a>
+                    <a href="#music" class="nav-link text-gray-800 hover:text-purple-600">Music</a>
+                    <a href="#projects" class="nav-link text-gray-800 hover:text-purple-600">Projects</a>
+                    <a href="#contact" class="nav-link text-gray-800 hover:text-purple-600">Contact</a>
+                </div>
+                <button class="md:hidden focus:outline-none">
+                    <i class="fas fa-bars text-gray-800 text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero text-white pt-32 pb-20 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Hi, I'm <span class="text-yellow-300">HIRWA Jordan Gloire</span></h1>
+                <h2 class="text-2xl md:text-3xl mb-6">Network Engineer & Music Producer</h2>
+                <p class="text-lg mb-8">Student in Networking and Internet Technology with expertise in software development and music production (drill type, mixing & mastering).</p>
+                <div class="flex space-x-4">
+                    <a href="#contact" class="bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">Hire Me</a>
+                    <a href="#projects" class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition duration-300">My Work</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <!-- Profile Image -->
+                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                    <img src="your-image-url.jpg" alt="HIRWA Jordan Gloire" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-purple-600 opacity-20"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 section-title">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
+                    <div class="relative w-64 h-64 rounded-lg overflow-hidden shadow-lg">
+                        <img src="your-image-url.jpg" alt="HIRWA Jordan Gloire" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="md:w-2/3 md:pl-12">
+                    <h3 class="text-2xl font-semibold mb-4">Who is Jordan Beat?</h3>
+                    <p class="text-gray-700 mb-6">My name is HIRWA Jordan Gloire, but I go by the nickname "Jordan Beat". I'm a passionate student specializing in Networking and Internet Technology with a strong foundation in software development. Alongside my technical pursuits, I'm deeply involved in music production, particularly in the drill genre, with expertise in mixing and mastering engineering.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-3 text-purple-600"><i class="fas fa-network-wired mr-2"></i> Networking</h4>
+                            <p class="text-gray-600">Currently pursuing studies in Networking and Internet Technology, focusing on network architecture, security, and internet protocols.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-3 text-purple-600"><i class="fas fa-code mr-2"></i> Software Development</h4>
+                            <p class="text-gray-600">Skilled in various programming languages and frameworks, with experience in building web and mobile applications.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-3 text-purple-600"><i class="fas fa-music mr-2"></i> Music Production</h4>
+                            <p class="text-gray-600">Specializing in drill music production with professional mixing and mastering skills to create polished, high-quality tracks.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-3 text-purple-600"><i class="fas fa-headphones mr-2"></i> Audio Engineering</h4>
+                            <p class="text-gray-600">Expertise in audio processing, sound design, and creating the perfect mix for various musical styles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 section-title">My Skills</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-purple-600"><i class="fas fa-network-wired mr-2"></i> Networking Skills</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-server"></i></div>
+                        <h4 class="font-semibold mb-2">Network Architecture</h4>
+                        <p class="text-gray-600 text-sm">Designing and implementing network infrastructure</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-shield-alt"></i></div>
+                        <h4 class="font-semibold mb-2">Network Security</h4>
+                        <p class="text-gray-600 text-sm">Implementing security protocols and firewalls</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-wifi"></i></div>
+                        <h4 class="font-semibold mb-2">Wireless Networking</h4>
+                        <p class="text-gray-600 text-sm">Configuring and optimizing wireless networks</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-cloud"></i></div>
+                        <h4 class="font-semibold mb-2">Cloud Networking</h4>
+                        <p class="text-gray-600 text-sm">Working with cloud-based network solutions</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-purple-600"><i class="fas fa-code mr-2"></i> Software Development</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fab fa-html5"></i></div>
+                        <h4 class="font-semibold mb-2">HTML/CSS</h4>
+                        <p class="text-gray-600 text-sm">Building responsive web interfaces</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fab fa-js"></i></div>
+                        <h4 class="font-semibold mb-2">JavaScript</h4>
+                        <p class="text-gray-600 text-sm">Creating interactive web applications</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fab fa-python"></i></div>
+                        <h4 class="font-semibold mb-2">Python</h4>
+                        <p class="text-gray-600 text-sm">Developing backend systems and scripts</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-database"></i></div>
+                        <h4 class="font-semibold mb-2">Database</h4>
+                        <p class="text-gray-600 text-sm">Working with SQL and NoSQL databases</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-2xl font-semibold mb-6 text-purple-600"><i class="fas fa-music mr-2"></i> Music Production</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-drum"></i></div>
+                        <h4 class="font-semibold mb-2">Drill Production</h4>
+                        <p class="text-gray-600 text-sm">Creating hard-hitting drill beats</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-sliders-h"></i></div>
+                        <h4 class="font-semibold mb-2">Mixing</h4>
+                        <p class="text-gray-600 text-sm">Balancing and processing audio tracks</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-wave-square"></i></div>
+                        <h4 class="font-semibold mb-2">Mastering</h4>
+                        <p class="text-gray-600 text-sm">Final polish for professional sound</p>
+                    </div>
+                    <div class="skill-card bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-purple-600 mb-3"><i class="fas fa-microphone"></i></div>
+                        <h4 class="font-semibold mb-2">Vocal Processing</h4>
+                        <p class="text-gray-600 text-sm">Enhancing and tuning vocal performances</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music" class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 section-title">My Music</h2>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <div class="music-player p-8 mb-8">
+                        <h3 class="text-2xl font-semibold mb-6 text-white">Latest Release</h3>
+                        <div class="flex items-center mb-6">
+                            <div class="w-24 h-24 rounded-lg overflow-hidden mr-4">
+                                <img src="https://via.placeholder.com/150" alt="Album Cover" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-white">Track Title</h4>
+                                <p class="text-gray-300">Jordan Beat</p>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <div class="flex justify-between text-sm text-gray-400 mb-1">
+                                <span>0:00</span>
+                                <span>3:45</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-1.5">
+                                <div class="bg-purple-500 h-1.5 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <button class="text-gray-300 hover:text-white"><i class="fas fa-step-backward text-xl"></i></button>
+                            <button class="bg-purple-500 text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-purple-600">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button class="text-gray-300 hover:text-white"><i class="fas fa-step-forward text-xl"></i></button>
+                            <button class="text-gray-300 hover:text-white"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-600">Production Services</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                                <span>Custom drill beat production</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                                <span>Professional mixing and mastering</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                                <span>Vocal tuning and processing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                                <span>Sound design for unique textures</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                                <span>Full track production from start to finish</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6 text-purple-600">Music Portfolio</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                                <img src="https://via.placeholder.com/150" alt="Track Cover" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-semibold">Track Title 1</h4>
+                                <p class="text-sm text-gray-600">Drill Beat • 2023</p>
+                            </div>
+                            <button class="text-purple-600 hover:text-purple-800">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                                <img src="https://via.placeholder.com/150" alt="Track Cover" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-semibold">Track Title 2</h4>
+                                <p class="text-sm text-gray-600">Drill Instrumental • 2023</p>
+                            </div>
+                            <button class="text-purple-600 hover:text-purple-800">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                                <img src="https://via.placeholder.com/150" alt="Track Cover" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-semibold">Track Title 3</h4>
+                                <p class="text-sm text-gray-600">Mixed & Mastered • 2023</p>
+                            </div>
+                            <button class="text-purple-600 hover:text-purple-800">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                                <img src="https://via.placeholder.com/150" alt="Track Cover" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-semibold">Track Title 4</h4>
+                                <p class="text-sm text-gray-600">Drill Type Beat • 2023</p>
+                            </div>
+                            <button class="text-purple-600 hover:text-purple-800">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-purple-100 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-600">Collaborate With Me</h3>
+                        <p class="mb-4">Interested in working together on a music project? Whether you need beats, mixing, or full production, I'm available for collaborations.</p>
+                        <a href="#contact" class="inline-block bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition duration-300">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 section-title">My Projects</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Networking Project -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://via.placeholder.com/600x400" alt="Network Project" class="w-full h-full object-cover project-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Network Security System</h3>
+                        <p class="text-gray-600 mb-4">A comprehensive network security solution with intrusion detection and prevention features.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Cisco</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Firewalls</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Security</span>
+                        </div>
+                        <a href="#" class="text-purple-600 font-semibold hover:text-purple-800 flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Software Project -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://via.placeholder.com/600x400" alt="Software Project" class="w-full h-full object-cover project-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">E-commerce Platform</h3>
+                        <p class="text-gray-600 mb-4">A full-stack e-commerce solution with payment integration and inventory management.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">React</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Node.js</span>
+                        </div>
+                        <a href="#" class="text-purple-600 font-semibold hover:text-purple-800 flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Music Project -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://via.placeholder.com/600x400" alt="Music Project" class="w-full h-full object-cover project-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Drill Beat Collection</h3>
+                        <p class="text-gray-600 mb-4">A series of professional drill beats available for licensing and collaboration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">FL Studio</span>
+                            <span class="bg-purple
+</html>
